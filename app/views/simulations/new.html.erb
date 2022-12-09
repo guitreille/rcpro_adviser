@@ -1,9 +1,59 @@
-<h1>New simulation</h1>
+<% if @lead.errors.any? or @request.errors.any? %>
+    <p> Error(s) on simulation: </p>
+    <% @lead.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+    <% end %>
+    <% @request.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+    <% end %>
+<% end %>
 
-<%= render "form", simulation: @simulation %>
+<div class="form container">
+    <%= form_with url: simulations_path, :html => {:class => "form-horizontal center"} do |f| %>
+        <div class="form-group">
+            <%= f.label :firstname, "First Name" %>
+            <%= f.text_field :firstname, class: "form-control", placeholder: "Gregory" %>
+        </div>
 
-<br>
+        <div class="form-group">
+            <%= f.label :lastname, "Last Name" %>
+            <%= f.text_field :lastname, class: "form-control", placeholder: "House" %>
+        </div>
 
-<div>
-  <%= link_to "Back to simulations", simulations_path %>
+        <div class="form-group">
+            <%= f.label :email, "Email" %>
+            <%= f.text_field :email, class: "form-control", placeholder: "doctor.house@care.com" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :phone_number, "Phone Number" %>
+            <%= f.text_field :phone, class: "form-control", placeholder: "+32471337722" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :address, "Address" %>
+            <%= f.text_field :address, class: "form-control", placeholder: "Princeton Plainboro 43, New jersey" %>
+        </div>
+
+        <div class="form-group">
+            <%= f.label :annual_revenue, "Annual Revenue" %>
+            <%= f.number_field  :annual_revenue, class: "form-control", placeholder: "A lot" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :entreprise_no, "Enterprise Number" %>
+            <%= f.text_field :entreprise_no, class: "form-control", placeholder: "455223234" %>
+        </div>
+        <div class="form-group">
+            <%= f.label :legal_name, "Your company's legal name" %>
+            <%= f.text_field :legal_name, class: "form-control", placeholder: "DrHouseCare"%>
+        </div>
+        <div class="form-group">
+            <%= f.label :natural_person, "Natural Person" %>
+            <%= f.check_box :natural_person %>
+        </div>
+        <div class="form-group">
+            <%= f.label :nacebel_codes, "Nacebel Codes" %>
+            <%= f.check_box :nacebel_codes, {multiple: true}, 1, nil %>
+            <% f.select 'nacebel_codes[]', options_for_select([5004, 40053, 222]), {prompt: '-Select-'}, multiple: true, class: 'select multiple-select' %>
+        </div>
+        <%= f.submit "Get price", class: "btn btn-primary" %>
+    <% end %>
 </div>

@@ -1,6 +1,6 @@
-class CreateSimulations < ActiveRecord::Migration[7.0]
+class CreateRequests < ActiveRecord::Migration[7.0]
   def change
-    create_table :simulations do |t|
+    create_table :requests do |t|
       t.integer :annual_revenue
       t.string :entreprise_no
       t.string :legal_name
