@@ -20,7 +20,7 @@ class SimulationsController < ApplicationController
 
     private
     def request_params
-      params.permit(:annual_revenue, :entreprise_no, :legal_name, :natural_person, :nacebel_codes)
+      params.permit(:annual_revenue, :entreprise_no, :legal_name, :natural_person, :nacebel_codes, nacebel_codes: [])
     end
 
     def lead_params
