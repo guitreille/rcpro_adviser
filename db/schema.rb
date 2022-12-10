@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_143642) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_105429) do
   create_table "leads", force: :cascade do |t|
     t.string "email"
     t.string "phone"
@@ -20,6 +20,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_143642) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email", "phone"], name: "index_leads_on_email_and_phone", unique: true
+  end
+
+  create_table "quotes", id: false, force: :cascade do |t|
+    t.boolean "available"
+    t.integer "coverage_ceiling"
+    t.integer "deductible"
+    t.string "id"
+    t.string "gross_premiums"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "request_id"
+    t.index ["request_id"], name: "index_quotes_on_request_id"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -34,5 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_143642) do
     t.index ["lead_id"], name: "index_requests_on_lead_id"
   end
 
+  add_foreign_key "quotes", "requests"
   add_foreign_key "requests", "leads"
 end

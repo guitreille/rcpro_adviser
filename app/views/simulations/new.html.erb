@@ -52,8 +52,7 @@
         <div class="form-group">
             <%= f.label :nacebel_codes, "Nacebel Codes" %>
             <% f.check_box :nacebel_codes, {multiple: true}, 1, nil %>
-            <%= select_tag "nacebel_codes[]", options_for_select([5004, 40053, 222], 5004), { multiple: true, :class => 'form-control'} %>
-            <% f.select 'nacebel_codes[]', options_for_select([5004, 40053, 222]), {prompt: '-Select-'}, multiple: true, class: 'select multiple-select' %>
+            <%= select_tag "nacebel_codes[]", options_for_select([40053, 40053, 40053], 40053), { multiple: true, :class => 'form-control'} %>
             <small class="form-text text-muted">CTRL + Click to select multiple NACE-BEL codes.</small>
         </div>
         <%= f.submit "Get price", class: "btn btn-primary" %>

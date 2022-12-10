@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coverage_ceiling: 1
+  deductible: 1
+  gross_premiums: MyString
+
+two:
+  coverage_ceiling: 1
+  deductible: 1
+  gross_premiums: MyString
