@@ -6,6 +6,13 @@ class SimulationsController < ApplicationController
         @quote = Quote.new
     end
 
+    def show 
+        #@quote = Quote.find(params[:id])
+        @request = Request.find(params[:id])
+        @quote = @request.quote
+        @lead = @request.lead
+    end
+
     def create
         @lead = Lead.new(lead_params)
         @request = Request.new(request_params)
