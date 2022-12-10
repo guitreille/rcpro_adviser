@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_123922) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_143642) do
   create_table "leads", force: :cascade do |t|
     t.string "email"
     t.string "phone"
@@ -19,6 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_123922) do
     t.string "lastname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email", "phone"], name: "index_leads_on_email_and_phone", unique: true
   end
 
   create_table "requests", force: :cascade do |t|
@@ -29,6 +30,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_123922) do
     t.string "nacebel_codes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "lead_id"
+    t.index ["lead_id"], name: "index_requests_on_lead_id"
   end
 
+  add_foreign_key "requests", "leads"
 end
