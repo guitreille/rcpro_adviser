@@ -7,9 +7,9 @@ class SimulationsController < ApplicationController
     end
 
     def show 
-        #@quote = Quote.find(params[:id])
-        @request = Request.find(params[:id])
-        @quote = @request.quote
+        @quote = Quote.find(params[:id])
+        #@request = Request.find(params[:id])
+        @request = @quote.request
         @lead = @request.lead
     end
 
@@ -39,7 +39,7 @@ class SimulationsController < ApplicationController
                 quote = Quote.create(available: response['data']["available"],
                     coverage_ceiling: response['data']["coverageCeiling"],
                     deductible: response['data']["deductible"],
-                    id: response['data']["quoteId"],
+                    api_quote_id: response['data']["quoteId"],
                     gross_premiums: response['data']["grossPremiums"],
                     request_id: @request.id)
                 redirect_to :root

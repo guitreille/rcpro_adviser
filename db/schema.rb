@@ -22,11 +22,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_105429) do
     t.index ["email", "phone"], name: "index_leads_on_email_and_phone", unique: true
   end
 
-  create_table "quotes", id: false, force: :cascade do |t|
+  create_table "quotes", force: :cascade do |t|
     t.boolean "available"
     t.integer "coverage_ceiling"
     t.integer "deductible"
-    t.string "id"
+    t.string "api_quote_id"
     t.string "gross_premiums"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
