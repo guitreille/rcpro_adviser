@@ -6,12 +6,18 @@ class SimulationsController < ApplicationController
         @quote = Quote.new
     end
 
+    def index
+        @quotes = Quote.all
+    end
+
     def show 
         @quote = Quote.find(params[:id])
         #@request = Request.find(params[:id])
         @request = @quote.request
         @lead = @request.lead
     end
+
+
 
     def create
         @lead = Lead.new(lead_params)
@@ -77,10 +83,4 @@ class SimulationsController < ApplicationController
             :headers => {   'Content-Type' => 'application/json',
                             'X-Api-Key' => api_key} )
     end
-
-    def save_quote(api_response)
-        
-    end
-
-    
 end

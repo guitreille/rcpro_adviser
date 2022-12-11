@@ -1,5 +1,6 @@
 class Request < ApplicationRecord
     belongs_to :lead
+    has_one :quote
 
     validates :annual_revenue, presence: true
     validates :entreprise_no, presence: true, length: { minimum: 10, maximum: 10 }
