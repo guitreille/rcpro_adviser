@@ -11,6 +11,14 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_12_12_170140) do
+  create_table "NACEBEL_2008 - Only Level 5", id: false, force: :cascade do |t|
+    t.integer "Code"
+    t.integer "Parentcode"
+    t.text "LabelNL"
+    t.text "LabelFR"
+    t.text "LabelDE"
+  end
+
   create_table "leads", force: :cascade do |t|
     t.string "email"
     t.string "phone"
@@ -48,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_170140) do
 
   create_table "sectors", force: :cascade do |t|
     t.string "name"
-    t.string "advice"
+    t.text "advice"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

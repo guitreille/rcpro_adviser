@@ -72,19 +72,18 @@ class QuotesController < ApplicationController
     end
 
     def fetch_quote
-        base_uri = 'https://staging-gtw.seraphin.be/quotes/professional-liability'
-        api_key = 'fABF1NGkfn5fpHuJHrbvG3niQX6A1CO53ftF9ASD'
-        puts @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
 
-        return HTTParty.post(base_uri, 
+        nacebel_codes = @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
+
+        return HTTParty.post(ENV['API_URI'], 
             :body => { "annualRevenue" => @request.annual_revenue, 
                        "enterpriseNumber" => @request.entreprise_no, 
                        "legalName" => @request.legal_name, 
                        "naturalPerson" => @request.natural_person, 
-                       "nacebelCodes" => @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
+                       "nacebelCodes" => nacebel_codes
                      }.to_json,
             :headers => {   'Content-Type' => 'application/json',
-                            'X-Api-Key' => api_key} )
+                            'X-Api-Key' => ENV['API_KEY']} )
     end
 end
 

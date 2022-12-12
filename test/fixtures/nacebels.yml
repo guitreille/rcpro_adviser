@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: 1
+  parent_code: 1
+  label_NL: MyString
+  label_FR: MyString
+  label_DE: MyString
+  label_EN: MyString
+
+two:
+  code: 1
+  parent_code: 1
+  label_NL: MyString
+  label_FR: MyString
+  label_DE: MyString
+  label_EN: MyString
