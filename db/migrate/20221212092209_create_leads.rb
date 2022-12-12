@@ -9,5 +9,7 @@ class CreateLeads < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :leads, [:email, :phone], :unique=> true
   end
 end

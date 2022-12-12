@@ -1,5 +1,4 @@
-class SimulationsController < ApplicationController
-
+class QuotesController < ApplicationController
     def new
         @lead = Lead.new
         @request = Request.new
@@ -84,3 +83,4 @@ class SimulationsController < ApplicationController
                             'X-Api-Key' => api_key} )
     end
 end
+

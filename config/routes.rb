@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  root "simulations#index"
-  resources :simulations
+  root "quotes#new"
+  resources :quotes
 end
