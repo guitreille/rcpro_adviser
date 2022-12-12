@@ -1,22 +1,19 @@
 class QuotesController < ApplicationController
+    def index
+        @quotes = Quote.all
+    end
+
     def new
         @lead = Lead.new
         @request = Request.new
         @quote = Quote.new
     end
 
-    def index
-        @quotes = Quote.all
-    end
-
     def show 
         @quote = Quote.find(params[:id])
-        #@request = Request.find(params[:id])
         @request = @quote.request
         @lead = @request.lead
     end
-
-
 
     def create
         @lead = Lead.new(lead_params)
@@ -47,7 +44,7 @@ class QuotesController < ApplicationController
                     api_quote_id: response['data']["quoteId"],
                     gross_premiums: response['data']["grossPremiums"],
                     request_id: @request.id)
-                redirect_to :root
+                redirect_to action: 'show', id: quote.id
             else
                 # TODO: render error on page!
                 render :new, status: :bad_request

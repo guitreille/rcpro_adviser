@@ -1,15 +1,42 @@
 <div class="container">
     <h1> Simulation <%= @quote.id %> </h1>
 
-    <p> Parameters: </p>
-    <%= @request %>
+    <p> Created at <%= @quote.created_at %> </p>
+    <p> User: <%= @lead.firstname + " " + @lead.lastname%> </p>
 
-    <p> Covers:</p>
+    <h2> Request parameters: </h2>
+    <table class="table table-bordered table-striped">   
+        <tr>   
+            <td> Annual revenue </th>
+            <td><%= @request.annual_revenue %></td>   
+        </tr>    
+        <tr>   
+            <td> Enterprise number </th>
+            <td><%= @request.entreprise_no %></td>   
+        </tr>    
+        <tr>   
+            <td> Legal Name </th>
+            <td><%= @request.legal_name %></td>   
+        </tr>    
+        <tr>   
+            <td> Natural Person </th>
+            <td><%= @request.natural_person %></td>   
+        </tr>    
+        <tr>   
+            <td> Nacebel Codes </th>
+            <td><%= @request.nacebel_codes %></td>   
+        </tr>    
+    </table>   
+
+
+    <h2> Advice </h2>
+    <p> You are advised to take the following covers: </p>
     <%= @quote.gross_premiums %>
+    <p> Deductible formula: <p>
+    <%= @quote.deductible %>
+    <p> Coverage Ceiling: </p>
+    <%= @quote.coverage_ceiling%>
 
-    <p> 
 <br>
-
-
 </div>
     

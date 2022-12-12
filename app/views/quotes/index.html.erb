@@ -1,0 +1,29 @@
+<h3>Simulation list</h3>   
+      
+<div>   
+    <%= link_to 'New simulation', new_quote_path %>   
+</div>   
+<br>   
+
+<table class="table table-bordered table-striped">   
+<tr>   
+    <th>Id</th>  
+    <th>User</th> 
+    <th>Date</th>   
+    <th>Coverage Ceiling</th>   
+    <th>Deductible</th>  
+    <th>Gross Premiums</th>
+</tr>   
+
+<% @quotes.each do |quote| %>   
+    <tr>   
+        <td><%= quote.id %></td>  
+        <td><%= quote.request.lead.firstname + " " + quote.request.lead.lastname %> 
+        <td><%= quote.created_at %></td>  
+        <td><%= quote.coverage_ceiling %></td> 
+        <td><%= quote.deductible %></td> 
+        <td><%= quote.gross_premiums %></td> 
+        <td><%= link_to 'Show', quote_path(quote), method: :show %></td>  
+    </tr>   
+<% end %>   
+</table>  
