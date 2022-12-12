@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_12_092406) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_12_170140) do
   create_table "leads", force: :cascade do |t|
     t.string "email"
     t.string "phone"
@@ -44,6 +44,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_12_092406) do
     t.datetime "updated_at", null: false
     t.integer "lead_id"
     t.index ["lead_id"], name: "index_requests_on_lead_id"
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.string "name"
+    t.string "advice"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "quotes", "requests"

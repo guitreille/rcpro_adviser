@@ -1,7 +1,7 @@
-<h3>Simulation list</h3>   
+<h3>List of all quotes</h3>   
       
 <div>   
-    <%= link_to 'New simulation', new_quote_path %>   
+    <%= link_to 'New simulation', new_quote_path, class: "btn btn-success"%>   
 </div>   
 <br>   
 
@@ -23,7 +23,7 @@
         <td><%= quote.coverage_ceiling %></td> 
         <td><%= quote.deductible %></td> 
         <td><%= quote.gross_premiums %></td> 
-        <td><%= link_to 'Show', quote_path(quote), method: :show %></td>  
+        <td><%= link_to 'Show', quote_path(quote), method: :show, class: "btn btn-primary" %></td>
     </tr>   
 <% end %>   
 </table>  

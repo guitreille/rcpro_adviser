@@ -1,6 +1,9 @@
 class QuotesController < ApplicationController
+    layout "application"
+
     def index
-        @quotes = Quote.all
+        request_ids = Request.where(:lead_id => params["lead"]).pluck(:id)
+        @quotes = Quote.where(:request_id => request_ids)
     end
 
     def new
@@ -13,6 +16,10 @@ class QuotesController < ApplicationController
         @quote = Quote.find(params[:id])
         @request = @quote.request
         @lead = @request.lead
+    end
+
+    def destroy
+        puts 'Apparently we got here!'
     end
 
     def create

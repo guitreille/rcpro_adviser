@@ -10,51 +10,62 @@
 
 <div class="form container">
     <%= form_with url: quotes_path, :html => {:class => "form-horizontal center"} do |f| %>
-        <div class="form-group">
+    <h3> Personal information </h3>
+        <div class="form-group" data-toggle="tooltip" title="Fill in your first name">
             <%= f.label :firstname, "First Name" %>
             <%= f.text_field :firstname, class: "form-control", placeholder: "Gregory" %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" data-toggle="tooltip" title="Fill in your last name">
             <%= f.label :lastname, "Last Name" %>
             <%= f.text_field :lastname, class: "form-control", placeholder: "House" %>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" data-toggle="tooltip" title="Fill in your e-mail address">
             <%= f.label :email, "Email" %>
             <%= f.text_field :email, class: "form-control", placeholder: "doctor.house@care.com" %>
         </div>
-        <div class="form-group">
+        <div class="form-group" data-toggle="tooltip" title="Fill in your phone number">
             <%= f.label :phone_number, "Phone Number" %>
             <%= f.text_field :phone, class: "form-control", placeholder: "+32471337722" %>
         </div>
-        <div class="form-group">
+        <div class="form-group" data-toggle="tooltip" title="Fill in your personal address">
             <%= f.label :address, "Address" %>
             <%= f.text_field :address, class: "form-control", placeholder: "Princeton Plainboro 43, New jersey" %>
         </div>
 
-        <div class="form-group">
+    <h3> Company information </h3>
+        <div class="form-group" data-toggle="tooltip" title="The revenue of the company in € of the previous year">
             <%= f.label :annual_revenue, "Annual Revenue" %>
             <%= f.number_field  :annual_revenue, class: "form-control", placeholder: "80000" %>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" data-toggle="tooltip" title="The number that identifies the company (always start with 0 and is exactly 10 digits).">
             <%= f.label :entreprise_no, "Enterprise Number" %>
             <%= f.text_field :entreprise_no, class: "form-control", placeholder: "0649885171" %>
         </div>
-        <div class="form-group">
-            <%= f.label :legal_name, "Your company's legal name" %>
+
+        <div class="form-group" data-toggle="tooltip" title="Legal name of the company.">
+            <%= f.label :legal_name, "Legal name" %>
             <%= f.text_field :legal_name, class: "form-control", placeholder: "DrHouseCare"%>
         </div>
-        <div class="form-group">
-            <%= f.label :natural_person, "Natural Person" %>
+
+        <div class="form-group" data-toggle="tooltip" title="In belgium they are two types of private owned businesses. You can be registered as a natural_person or as a legal_person. More info here.
+So if you're not a natural_person, by default you're a legal_person.">
+            <%= f.label :natural_person, "Is the business owned by a natural person?" %>
             <%= f.check_box :natural_person %>
         </div>
+
         <div class="form-group">
             <%= f.label :nacebel_codes, "Nacebel Codes" %>
             <% f.check_box :nacebel_codes, {multiple: true}, 1, nil %>
             <%= select_tag "nacebel_codes[]", options_for_select([26600, 32500, 77295], 26600), { multiple: true, :class => 'form-control'} %>
             <small class="form-text text-muted">CTRL + Click to select multiple NACE-BEL codes.</small>
         </div>
+
         <%= f.submit "Get price", class: "btn btn-primary" %>
     <% end %>
+<br>
+<%= link_to 'My simulations', {controller: 'quotes',
+        action: 'index', lead: @lead.id},  class: "btn btn-secondary"%>
 </div>

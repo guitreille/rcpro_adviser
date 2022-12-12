@@ -30,13 +30,20 @@
 
 
     <h2> Advice </h2>
-    <p> You are advised to take the following covers: </p>
-    <%= @quote.gross_premiums %>
-    <p> Deductible formula: <p>
-    <%= @quote.deductible %>
-    <p> Coverage Ceiling: </p>
-    <%= @quote.coverage_ceiling%>
-
+    <p> The simulation outputted the following information: </p>
+    <ul>
+        <li> Covers: <%= @quote.gross_premiums %> </li>
+        <li> Coverage Ceiling: <%= @quote.coverage_ceiling%> </li>
+        <li> Deductible formula: <%= @quote.deductible %> </li>
+    </ul>
+    <p> You are advised to: </p>
+    <ul>
+        <li> Take a <b><%= @quote.get_advice[0] %></b> coverage ceiling. </li>
+        <li> Take a <b><%= @quote.get_advice[1] %></b> deductible formula. </li>
+        <li> Take the <b><%= @quote.get_advice[2]%></b> cover. </li>
+    </ul>
 <br>
+<%= link_to 'My simulations', {controller: 'quotes',
+        action: 'index', lead: @lead.id},  class: "btn btn-secondary"%>
 </div>
     
