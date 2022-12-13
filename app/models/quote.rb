@@ -8,7 +8,6 @@ class Quote < ApplicationRecord
 
     private 
     def coverage_advice
-        puts coverage_ceiling 
         case coverage_ceiling
         when 0..99999  
             'small'

@@ -18,10 +18,6 @@ class QuotesController < ApplicationController
         @lead = @request.lead
     end
 
-    def destroy
-        puts 'Apparently we got here!'
-    end
-
     def create
         @lead = Lead.new(lead_params)
         @request = Request.new(request_params)
@@ -53,7 +49,7 @@ class QuotesController < ApplicationController
                     request_id: @request.id)
                 redirect_to action: 'show', id: quote.id
             else
-                # TODO: render error on page!
+                @request.errors.add(:base, message: response["message"] + ": " + response["data"]["message"])
                 render :new, status: :bad_request
             end
         else
@@ -64,7 +60,8 @@ class QuotesController < ApplicationController
 
     private
     def request_params
-      params.permit(:annual_revenue, :entreprise_no, :legal_name, :natural_person, :nacebel_codes, nacebel_codes: [])
+        puts params
+        params.permit(:annual_revenue, :entreprise_no, :legal_name, :natural_person, nacebel_codes: [])
     end
 
     def lead_params
@@ -72,7 +69,6 @@ class QuotesController < ApplicationController
     end
 
     def fetch_quote
-
         nacebel_codes = @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
 
         return HTTParty.post(ENV['API_URI'], 

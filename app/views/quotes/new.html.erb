@@ -1,16 +1,16 @@
-<% if @lead.errors.any? or @request.errors.any? %>
-    <p> Error(s) on simulation: </p>
-    <% @lead.errors.full_messages.each do |message| %>
-        <div><%= message %></div>
-    <% end %>
-    <% @request.errors.full_messages.each do |message| %>
-        <div><%= message %></div>
-    <% end %>
-<% end %>
+
+<h2> Get a quote for your RC Pro insurance </h2>
 
 <div class="form container">
     <%= form_with url: quotes_path, :html => {:class => "form-horizontal center"} do |f| %>
     <h3> Personal information </h3>
+        <% @lead.errors.full_messages.each do |attr, msg|  %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert"> 
+                <%= attr %> <%= msg %> 
+            </div>
+
+        <% end %>
+
         <div class="form-group" data-toggle="tooltip" title="Fill in your first name">
             <%= f.label :firstname, "First Name" %>
             <%= f.text_field :firstname, class: "form-control", placeholder: "Gregory" %>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="form-group" data-toggle="tooltip" title="Fill in your e-mail address">
-            <%= f.label :email, "Email" %>
+            <%= f.label :email, "E-mail" %>
             <%= f.text_field :email, class: "form-control", placeholder: "doctor.house@care.com" %>
         </div>
         <div class="form-group" data-toggle="tooltip" title="Fill in your phone number">
@@ -35,6 +35,10 @@
         </div>
 
     <h3> Company information </h3>
+        <% @request.errors.full_messages.each do |attr, msg|  %>
+            <div class="alert alert-danger" role="alert"> <%= attr %> <%= msg %> </div>
+        <% end %>
+
         <div class="form-group" data-toggle="tooltip" title="The revenue of the company in € of the previous year">
             <%= f.label :annual_revenue, "Annual Revenue" %>
             <%= f.number_field  :annual_revenue, class: "form-control", placeholder: "80000" %>
@@ -52,17 +56,17 @@
 
         <div class="form-group" data-toggle="tooltip" title="In belgium they are two types of private owned businesses. You can be registered as a natural_person or as a legal_person. More info here.
 So if you're not a natural_person, by default you're a legal_person.">
-            <%= f.label :natural_person, "Is the business owned by a natural person?" %>
+            <%= f.label :natural_person, "Business owned by a natural person?" %>
             <%= f.check_box :natural_person %>
         </div>
+        <br>
 
         <div class="form-group">
-            <%= f.label :nacebel_codes, "Nacebel Codes" %>
+            <%= f.label :nacebel_codes, "Insurances of interest:" %>
             <% f.check_box :nacebel_codes, {multiple: true}, 1, nil %>
-            <%= select_tag "nacebel_codes[]", options_for_select([26600, 32500, 77295], 26600), { multiple: true, :class => 'form-control'} %>
-            <small class="form-text text-muted">CTRL + Click to select multiple NACE-BEL codes.</small>
+            <%= f.collection_select "nacebel_codes", Nacebel.where(:code => [26600, 32500, 77295]), :code, :label_FR, {include_hidden: false}, {:multiple => true, :class => 'form-control'} %>
+            <small class="form-text text-muted">CTRL + Click to select multiple entries.</small>
         </div>
-
         <%= f.submit "Get price", class: "btn btn-primary" %>
     <% end %>
 <br>
