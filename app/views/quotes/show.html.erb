@@ -36,11 +36,11 @@
         <li> Coverage Ceiling: <%= @quote.coverage_ceiling%> </li>
         <li> Deductible formula: <%= @quote.deductible %> </li>
     </ul>
-    <p> You are advised to: </p>
+    <p> <%= @quote.get_advice[:additional_text] %> Hence, you are advised to: </p>
     <ul>
-        <li> Take a <b><%= @quote.get_advice[0] %></b> coverage ceiling. </li>
-        <li> Take a <b><%= @quote.get_advice[1] %></b> deductible formula. </li>
-        <li> Take the <b><%= @quote.get_advice[2]%></b> cover. </li>
+        <li> Take a <b><%= @quote.get_advice[:coverage] %></b> coverage ceiling, <%= @quote.get_advice[:coverage_reason] %> </li>
+        <li> Take a <b><%= @quote.get_advice[:deductible]%></b> deductible formula, <%= @quote.get_advice[:deductible_reason] %> </li>
+        <li> Take the <b><%= @quote.get_advice[:cover]%></b> cover, <%= @quote.get_advice[:cover_reason] %> </li>
     </ul>
 <br>
 <%= link_to 'My simulations', {controller: 'quotes',

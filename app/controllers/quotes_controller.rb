@@ -1,6 +1,4 @@
 class QuotesController < ApplicationController
-    layout "application"
-
     def index
         request_ids = Request.where(:lead_id => params["lead"]).pluck(:id)
         @quotes = Quote.where(:request_id => request_ids)
@@ -27,7 +25,6 @@ class QuotesController < ApplicationController
         if (lead_exists.length > 0)
             @request.lead_id = lead_exists[0].id
         else
-            #New lead
             if (@lead.save)
                 @request.lead_id = @lead.id
             else
@@ -60,7 +57,6 @@ class QuotesController < ApplicationController
 
     private
     def request_params
-        puts params
         params.permit(:annual_revenue, :entreprise_no, :legal_name, :natural_person, nacebel_codes: [])
     end
 
@@ -70,14 +66,16 @@ class QuotesController < ApplicationController
 
     def fetch_quote
         nacebel_codes = @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
+        
+        http_body = { "annualRevenue" => @request.annual_revenue, 
+            "enterpriseNumber" => @request.entreprise_no, 
+            "legalName" => @request.legal_name, 
+            "naturalPerson" => @request.natural_person, 
+            "nacebelCodes" => nacebel_codes
+        }
 
         return HTTParty.post(ENV['API_URI'], 
-            :body => { "annualRevenue" => @request.annual_revenue, 
-                       "enterpriseNumber" => @request.entreprise_no, 
-                       "legalName" => @request.legal_name, 
-                       "naturalPerson" => @request.natural_person, 
-                       "nacebelCodes" => nacebel_codes
-                     }.to_json,
+            :body => http_body.to_json,
             :headers => {   'Content-Type' => 'application/json',
                             'X-Api-Key' => ENV['API_KEY']} )
     end
