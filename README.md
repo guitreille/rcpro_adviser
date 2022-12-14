@@ -1,6 +1,6 @@
 # RCPRO Insurance adviser
 
-This back-end Ruby program advises a potential future client interested in a professional liability insurance ('RC Professionelle' in french). Based on his/her company's profile and insurances of interest, a quote from a well-defined API is sent in reponse. The user can then easily view its older simulations, and his contact is saved for the company.
+This back-end Ruby program advises a potential future client interested in a professional liability insurance ('RC Professionelle' in FR). Based on his/her company's profile and insurances of interest, a quote from a well-defined API is sent in reponse. The user can then easily view its older simulations, and his contact is saved for the company.
 
 ## Features ##
 * Implementation using Ruby on Rails, following its typical MVC patterns.
