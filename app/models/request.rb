@@ -1,6 +1,6 @@
 class Request < ApplicationRecord
     belongs_to :lead
-    has_one :quote
+    has_one :quote, dependent: :destroy
 
     validates :annual_revenue, presence: true, numericality: true
     validates :entreprise_no, presence: true, length: { is: 10}

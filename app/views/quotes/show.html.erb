@@ -42,6 +42,15 @@
         <li> Take a <b><%= @quote.get_advice[:deductible]%></b> deductible formula, <%= @quote.get_advice[:deductible_reason] %> </li>
         <li> Take the <b><%= @quote.get_advice[:cover]%></b> cover, <%= @quote.get_advice[:cover_reason] %> </li>
     </ul>
+    <br>
+    <p> What do the covers mean? </p>
+    <ul>
+        <li> <b>afterDelivery:</b> covers damage arising after delivery of or completion of work (ex: new machines recently installed at the client's office start a fire). </li>
+        <li> <b>publicLiability:</b> covers compensation claims for injury or damage (ex: you spill a cup of coffee over a client’s computer equipment).</li>
+        <li> <b>professionalIndemnity:</b> covers compensation claims for a mistake that you make during your work (ex: accidentally forwarded confidential client information to third parties) </li>
+        <li> <b>entrustedObjects:</b> objects that don't belong to you, and are entrusted to you. You are obviously liable for any damage to these goods. (ex: you break the super expensive computer that was provided to you as an IT consultant). </li>
+        <li> <b>legalExpenses:</b>also known as legal insurance, is an insurance which facilitates access to law and justice by providing legal advice and covering legal costs of a dispute. (ex: a client asks you for a financial compensation for a mistake you made in your work and you consider it's absolutely not you fault considering the context and you thus want to hire a lawyer to defend you). </li>
+    </ul>
 <br>
 <%= link_to 'My simulations', {controller: 'quotes',
         action: 'index', lead: @lead.id},  class: "btn btn-secondary"%>

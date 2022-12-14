@@ -1,5 +1,6 @@
 class QuotesController < ApplicationController
     def index
+        # Loads the requests and associated quotes based on the lead.id
         request_ids = Request.where(:lead_id => params["lead"]).pluck(:id)
         @quotes = Quote.where(:request_id => request_ids)
     end
@@ -8,6 +9,7 @@ class QuotesController < ApplicationController
         @lead = Lead.new
         @request = Request.new
         @quote = Quote.new
+        
     end
 
     def show 
@@ -35,20 +37,7 @@ class QuotesController < ApplicationController
     
         if @request.save
             response = JSON.parse(fetch_quote.body)
-            puts JSON.pretty_generate(response)
-            if response['success']
-                # Save to db
-                quote = Quote.create(available: response['data']["available"],
-                    coverage_ceiling: response['data']["coverageCeiling"],
-                    deductible: response['data']["deductible"],
-                    api_quote_id: response['data']["quoteId"],
-                    gross_premiums: response['data']["grossPremiums"],
-                    request_id: @request.id)
-                redirect_to action: 'show', id: quote.id
-            else
-                @request.errors.add(:base, message: response["message"] + ": " + response["data"]["message"])
-                render :new, status: :bad_request
-            end
+            handle_api_response(response)
         else
             render :new, status: :unprocessable_entity
         end
@@ -65,19 +54,40 @@ class QuotesController < ApplicationController
     end
 
     def fetch_quote
+        # correct string format
         nacebel_codes = @request.nacebel_codes.gsub(/(\[\"|\"\])/, '').split('", "')
         
-        http_body = { "annualRevenue" => @request.annual_revenue, 
-            "enterpriseNumber" => @request.entreprise_no, 
-            "legalName" => @request.legal_name, 
-            "naturalPerson" => @request.natural_person, 
-            "nacebelCodes" => nacebel_codes
-        }
+        http_body = {"annualRevenue" => @request.annual_revenue, 
+                     "enterpriseNumber" => @request.entreprise_no, 
+                     "legalName" => @request.legal_name, 
+                     "naturalPerson" => @request.natural_person, 
+                     "nacebelCodes" => nacebel_codes
+                    }
 
         return HTTParty.post(ENV['API_URI'], 
-            :body => http_body.to_json,
-            :headers => {   'Content-Type' => 'application/json',
-                            'X-Api-Key' => ENV['API_KEY']} )
+                            :body => http_body.to_json,
+                            :headers => 
+                                {   'Content-Type' => 'application/json',
+                                    'X-Api-Key' => ENV['API_KEY']
+                                } 
+                            )
+    end
+
+    def handle_api_response(response)
+
+        if response['success']
+            quote = Quote.create(available: response['data']["available"],
+                                 coverage_ceiling: response['data']["coverageCeiling"],
+                                 deductible: response['data']["deductible"],
+                                 api_quote_id: response['data']["quoteId"],
+                                 gross_premiums: response['data']["grossPremiums"],
+                                 request_id: @request.id)
+            
+            redirect_to action: 'show', id: quote.id
+        else
+            @request.errors.add(:base, message: response["message"] + ": " + response["data"]["message"])
+            render :new, status: :bad_request
+        end
     end
 end
 

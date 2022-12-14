@@ -9,6 +9,6 @@ class CreateQuotes < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_reference :quotes, :request, foreign_key: true
+    add_reference :quotes, :request, foreign_key: true, on_delete: :cascade
   end
 end

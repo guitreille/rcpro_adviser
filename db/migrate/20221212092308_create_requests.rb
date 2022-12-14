@@ -9,6 +9,6 @@ class CreateRequests < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_reference :requests, :lead, foreign_key: true
+    add_reference :requests, :lead, foreign_key: true, on_delete: :cascade
   end
 end

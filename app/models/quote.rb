@@ -1,6 +1,7 @@
 class Quote < ApplicationRecord
     belongs_to :request
     Inf = 1.0/0
+    Sector = ENV['SECTOR']
 
     def get_advice 
         {
@@ -40,10 +41,20 @@ class Quote < ApplicationRecord
     end
     
     def cover_advice
-        ['legal expenses', 'as it is strongly recommended in your case because the risks are high. There\'s a high probability that the claim would be followed by legal actions. You must thus be able to defend yourself. ']
+        case Sector
+        when 'medical'
+            ['legal expenses', 'as it is strongly recommended in your case because the risks are high. There\'s a high probability that the claim would be followed by legal actions. You must thus be able to defend yourself. ']
+        when 'informatics'
+            ['after delivery', ' to cover damage arising after delivery of or completion of work.']
+        end
     end
 
     def text_advice
-        'As a doctor, your risk is limited in terms frequency, but the risk is very high as the amount involved in a medical error are enormous.' 
+        case Sector
+        when 'medical'
+            'As a doctor, your risk is limited in terms frequency, but the risk is very high as the amount involved in a medical error are enormous.' 
+        when 'informatics'
+            'The main problems could come after the delivery of work, and on a quite regular frequency.'
+        end
     end
 end

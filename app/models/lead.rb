@@ -1,5 +1,5 @@
 class Lead < ApplicationRecord
-    has_many :requests
+    has_many :requests, dependent: :destroy
 
     # REGEX Inspired from https://mailtrap.io/blog/rails-email-validation/ 
     validates :email, presence: true,  format: { with: /\.(.+)@(.+)\z/}, length: { in: 4..254 }
